@@ -1,11 +1,10 @@
-#N canvas 640 43 638 362 10;
+#N canvas 0 43 638 755 10;
 #X obj 91 146 osc~ 220;
 #X text 355 214 signals;
 #X obj 94 19 hsl 128 15 0 1 0 0 empty empty frequency_[0-1]~[60-660]
--2 -8 0 10 -262144 -1 -1 0 1;
+-2 -8 0 10 -262144 -1 -1 12700 1;
 #X floatatom 91 39 5 0 0 0 - - -, f 5;
 #X obj 91 123 line~;
-#X msg 91 100 \$1 50;
 #X obj 91 59 expr $f1 * 600 + 60;
 #X floatatom 91 81 5 0 0 0 - - -, f 5;
 #X obj 92 232 dac~;
@@ -13,18 +12,19 @@
 #X obj 162 175 line~;
 #X msg 162 153 \$1 50;
 #X obj 165 114 hsl 128 15 0 1 0 0 empty empty amplitude_[0-1] -2 -8
-0 10 -262144 -1 -1 0 1;
+0 10 -262144 -1 -1 2100 1;
 #X floatatom 162 135 5 0 0 0 - - -, f 5;
-#X connect 0 0 9 0;
+#X msg 91 100 \$1 5000;
+#X connect 0 0 8 0;
 #X connect 2 0 3 0;
-#X connect 3 0 6 0;
+#X connect 3 0 5 0;
 #X connect 4 0 0 0;
-#X connect 5 0 4 0;
-#X connect 6 0 7 0;
-#X connect 7 0 5 0;
-#X connect 9 0 8 0;
+#X connect 5 0 6 0;
+#X connect 6 0 13 0;
+#X connect 8 0 7 0;
+#X connect 8 0 7 1;
 #X connect 9 0 8 1;
-#X connect 10 0 9 1;
-#X connect 11 0 10 0;
-#X connect 12 0 13 0;
-#X connect 13 0 11 0;
+#X connect 10 0 9 0;
+#X connect 11 0 12 0;
+#X connect 12 0 10 0;
+#X connect 13 0 4 0;

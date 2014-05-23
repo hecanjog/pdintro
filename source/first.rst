@@ -1,0 +1,86 @@
+Digital Audio
+=============
+
+Sound hitting our ears is as continous as reality. Air compresses and rarefies smoothly.
+Analog signals - like my voice for example - can be represented digitally by using a 
+sensitive membrane connected to a transducer - you may know this device as a microphone - 
+to sample these changes in pressure at a regular interval - is is the **sampling rate**.
+
+The principle is the same when sampling from an analog audio signal, like the headphone 
+output from an FM radio. The analog signal is a continuous voltage - just like the 
+signal produced by the transducer in a microphone - you could pick any tiny point in 
+time, and if you had good enough instruments, measure the value of the signal, and be able 
+to track the tiniest of changes in the shortest intervals.
+
+Once the audio has been sampled, what we actually have is a collection of numbers - specifically 
+integers of a certain type - representing each instananious value of the signal. The range of these 
+integers correlates to the dynamic range of the audio. 
+
+Lets say our range is between -100 and 100. If the speaker cone is pushed all the way out, 
+the value is 100. If it is pulled all the way in, the value is -100. If it is at rest (and 
+therefore silent) the value is 0. This means we have exactly 201 possible amplitudes to work 
+with. (That extra 1 comes from the 0 value.)
+
+[ diagram ]
+
+This range doesn't affect **absolute** loudness - that is to say, if we had a range of -200 to 
+200, the audio would not be twice as loud, but we would have almost twice the number of choices 
+for amplitudes.
+
+If we were writing music with western notation and we were limited to ppp, mf, and fff for 
+dynamic markings, this would be the equivelant to working with a low bit depth in digital audio.
+If we then wrote music using ppp, pp, p, mf, f, ff, and fff for dynamic markings, we haven't changed 
+the **absolute** loudness of the music, but we've given ourselves more dynamic range.
+
+The same is true for digital audio, but there are different consequences to audio with a limited bit depth.
+
+Before I get into that. First lets touch on why the dynamic range of digital audio is described in 
+terms of bit depth. Earlier I mentioned that when we sample audio, what we actually end up is a collection 
+of integers of a specific sort. What sort exactly depends precisely on the bit depth of the audio we're 
+targeting. Computers store integers - and every other thing! - as a series of 1s and 0s as you probably know. 
+
+Each of those 1s or 0s is called a bit. If we only needed to store 2 possible values, we could just use a single 
+bit. So, the number 1 would be:
+
+    1
+    
+How about the number 3? We need to add a bit to give us more possible values. Using two bits, here is our 1 again:
+
+    0 1
+
+The farthest bit to the right (this is called little-endian format fwiw, in reverse it's big-endian) is the ones 
+column - so 0 is 0 and 1 is 1 - but our new bit is the twos column: 0 is 0 and 1 is 2.
+
+To store a three in binary, we'd write these bits into the computer's memory:
+
+    1 1
+
+Adding it up from left to right, we have a value of 2 and a value of 1, and now we have our 3!
+
+Using two bits to store each sampled number in a digital audio stream means we would have a bit depth of 
+2, and exactly 4 possible dynamics for our audio.
+
+And how about 9? Add two more bits. These will represent the 4s and 8s columns - because this is a base 2 system, 
+each additional bit is 2 to the power of its column index. So counting from 0 from the right to the left, lowest to 
+highest: 
+
+    2^0 = 1, 2^1 = 2, 2^2 = 4, 2^4 = 8
+
+That means we can store nine by setting 4 bits like this:
+
+    1 0 0 1
+
+Five: 1 eight plus 0 fours plus 0 twos plus 1 one.
+
+Now we're working with 4 bit numbers!
+
+Okay, we can finally get to pure data. Lets listen to how 4 bit audio sounds by sampling my voice with pure data 
+using only the 8 possible values in a 4 bit integer. Here's a graph of what a sinewave recorded at this bit depth 
+would look like:
+
+[ graph ]
+
+You can see how the audio makes huge jumps between values - these jumps are discontinuities. As a general rule, 
+sounds with rougher and more angular shapes have a richer timbre, with more energy in the upper partials. These 
+jumps are just about as extreme as you can get in digital audio, so at those moments of transition the sound has 
+a lot of energy across the frequency spectrum. This is called transient distortion.
