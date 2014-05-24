@@ -83,4 +83,4 @@ would look like:
 You can see how the audio makes huge jumps between values - these jumps are discontinuities. As a general rule, 
 sounds with rougher and more angular shapes have a richer timbre, with more energy in the upper partials. These 
 jumps are just about as extreme as you can get in digital audio, so at those moments of transition the sound has 
-a lot of energy across the frequency spectrum. This is called transient distortion.
+a lot of energy across the frequency spectrum. This is known as quantization noise.
