@@ -179,16 +179,25 @@ While the DAC is on, every 1.45 milliseconds, pd figures out the next 64 values 
 Control Rate Objects
 ====================
 
+Lets add some GUI objects so we can control our patch interactively. The ``[ hslider ]`` and ``[ vslider ]`` objects are sliders you 
+can drag with the mouse to send the corresponding value in a given range to the slider's outlet. To make this volume pedal ``[ *~ ]`` 
+object more like a volume pedal, we have to have a way to change its value whenever we want. One way to do this is with an ``[ hslider ]``
+GUI object. 
+
 .. image:: hslider_range.png
    :align: center
 
 .. figure:: control_hsliders.png
    :align: center
+   
+   Adding a couple ``[ hslider ]`` s and number boxes for interactivity.
 
-   Try using the mouse to change the amplitude hslider very fast. The zippering sound you hear is the result of the same 
-   type of discontinuity we saw with quantization noise. Control rate objects only update once every DSP tick - in this case 
-   every 1.45ms - and so the ``[ *~ ]`` will hold its value for the duration of each 64 sample tick, and jump to the currently 
-   sampled value from the ``[ hslider ]`` on each subsequent tick.
+Try using the mouse to change the amplitude hslider very fast. The zippering sound you hear is the result of the same 
+type of discontinuity we saw with quantization noise. Control rate objects only update once every DSP tick - in this case 
+every 1.45ms - and so the ``[ *~ ]`` will hold its value for the duration of each 64 sample tick, and jump to the currently 
+sampled value from the ``[ hslider ]`` on each subsequent tick.
+
+
 
 Zipper noise with control rate driven signal objects.
 
