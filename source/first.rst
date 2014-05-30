@@ -80,7 +80,7 @@ would look like:
 
 [ graph ]
 
-You can see how the audio makes huge jumps between values - these jumps are discontinuities. As a general rule, 
+You can see discontinuities where the audio makes huge jumps between values. As a general rule, 
 sounds with rougher and more angular shapes have a richer timbre, with more energy in the upper partials. These 
 jumps are just about as extreme as you can get in digital audio, so at those moments of transition the sound has 
 a lot of energy across the frequency spectrum. This is known as quantization noise.
@@ -130,10 +130,22 @@ Sampling rate
 =============
 
 Thinking back to our discussion of digital audio, we spoke of sampling from the input of the signal chain at a regular interval. That 
-interval is the sampling rate for our system. Given the settings we decided on above, that means that every 1/44100th of a second 
+interval is the sampling rate for our system. Given the settings we decided on above, we could guess that every 1/44100th of a second 
+a signal rate pd object would get a new number in one of its inlets, do something with it, and spit a new number out to one of its outlets.
+Actually, computation happens in small blocks of numbers. You can change the size of this block, but the default is usually 64 samples.
+So every 64/44100ths of a second - or about 1.45 milliseconds - pure data will process a block of 64 samples and schedule them for playback. 
+([Miller97], [Pd1])
 
+[Miller97] http://puredata.info/docs/articles/puredata1997
+[Pd1] http://puredata.info/docs/developer/PdMemoryModel/view
 
 
 Control rate connections
+========================
+
+
 Block execution
+===============
+
+
 
