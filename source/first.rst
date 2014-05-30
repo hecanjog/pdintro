@@ -125,6 +125,8 @@ questions related to data flow - for example:
  - How does each kind of information behave? 
  - How do I convert one kind of information into another kind?
 
+I'll try to provide the tools to discover the answers to these questions when they pop up in unfamiliar places.
+
 Objects and abstractions
 ========================
 
@@ -146,7 +148,13 @@ channels - so typically there are two inlets: one for the left channel and one f
 If we wanted to mimic the signal path of a guitar plugged into a volume pedal, which is in turn plugged into an amplifier, in 
 pure data we could create a simple patch with three objects. 
 
-Signal rate connections
+.. image:: guitar_pedals.png
+   :align: center
+
+   It doesn't sound much like a guitar, but you can imagine this simple patch as being like a 
+   guitarist plugging his guitar into a volume pedal, and the volume pedal into a stereo amplifier.
+
+Signal Rate Connections
 =======================
 
 As the guitar, we can start with an ``[ osc~ ]`` object. ``[ osc~ ]`` and ``[ dac~ ]`` are both signal rate objects. Every signal rate object has 
@@ -154,26 +162,36 @@ a tilde at the end of its name by convention. Signal rate objects do their work 
 rate you've chosen for your soundcard. Lets assume we're using a sampling rate of 44,100 samples every second, and a bit depth of 
 16 bits - in other words, cd quality audio.
 
-Sampling rate
-=============
+More Sampling Signals
+=====================
 
-Thinking back to our discussion of digital audio, we spoke of sampling from the input of the signal chain at a regular interval. That 
-interval is the sampling rate for our system. Given the settings we decided on above, we could guess that every 1/44100th of a second 
+Sampling is a concept that will constantly come up in working with digital audio. In different contexts it has specific meanings and 
+can sometimes be confusing, but the basic concept is very simple. Sampling is the process of picking a number out of a stream of numbers 
+in order to represent that stream at a given point in time. In other words, it is a sample of the value of a signal at a certain time.
+
+The sampling rate for an audio system then just tells us how many samples the system will take in one second.
+Given the settings we decided on for the guitar example above, we could guess that every 1/44100th of a second 
 a signal rate pd object would get a new number in one of its inlets, do something with it, and spit a new number out to one of its outlets.
 Actually, computation happens in small blocks of numbers. You can change the size of this block, but the default is usually 64 samples.
 So every 64/44100ths of a second - or about 1.45 milliseconds - pure data will process a block of 64 samples and schedule them for playback. 
-(Miller97_, PdMemoryModel_)
+(Miller97_, PdMemoryModel_) During that 64 sample block, the entire signal chain is calculated. Signal rate objects are constantly being evaluated as long as DSP is 
+on in pd.
 
-.. [Miller97] http://puredata.info/docs/articles/puredata1997
-.. [PdMemoryModel] http://puredata.info/docs/developer/PdMemoryModel/view
+While the DAC is on, every 1.45 milliseconds, pd figures out the next 64 values it should send to the ``[ dac~ ]`` all at once.
+
+Zipper noise with control rate driven signal objects.
 
 
-Control rate connections
+Control Rate Connections
 ========================
 
 
 Block execution
 ===============
 
+Citations
+=========
 
+.. [Miller97] http://puredata.info/docs/articles/puredata1997
+.. [PdMemoryModel] http://puredata.info/docs/developer/PdMemoryModel/view
 
