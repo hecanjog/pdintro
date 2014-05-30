@@ -148,7 +148,7 @@ channels - so typically there are two inlets: one for the left channel and one f
 If we wanted to mimic the signal path of a guitar plugged into a volume pedal, which is in turn plugged into an amplifier, in 
 pure data we could create a simple patch with three objects. 
 
-.. image:: guitar_pedals.png
+.. figure:: guitar_pedals.png
    :align: center
 
    It doesn't sound much like a guitar, but you can imagine this simple patch as being like a 
