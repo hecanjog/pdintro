@@ -79,9 +79,12 @@ And how about 9? Add two more bits. These will represent the 4s and 8s columns -
 each additional bit is 2 to the power of its column index. So counting from 0 from the right to the left, lowest to 
 highest: 
 
-::
+.. math::
 
-    2^0 = 1, 2^1 = 2, 2^2 = 4, 2^4 = 8
+    2^0 = 1
+    2^1 = 2
+    2^2 = 4
+    2^4 = 8
 
 That means we can store nine by setting 4 bits like this:
 
