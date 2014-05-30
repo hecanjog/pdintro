@@ -6,6 +6,9 @@ Analog signals - like my voice for example - can be represented digitally by usi
 sensitive membrane connected to a transducer - you may know this device as a microphone - 
 to sample these changes in pressure at a regular interval - is is the **sampling rate**.
 
+Sampling Signals
+================
+
 The principle is the same when sampling from an analog audio signal, like the headphone 
 output from an FM radio. The analog signal is a continuous voltage - just like the 
 signal produced by the transducer in a microphone - you could pick any tiny point in 
@@ -15,6 +18,9 @@ to track the tiniest of changes in the shortest intervals.
 Once the audio has been sampled, what we actually have is a collection of numbers - specifically 
 integers of a certain type - representing each instananious value of the signal. The range of these 
 integers correlates to the dynamic range of the audio. 
+
+Dynamic Range
+=============
 
 Lets say our range is between -100 and 100. If the speaker cone is pushed all the way out, 
 the value is 100. If it is pulled all the way in, the value is -100. If it is at rest (and 
@@ -34,7 +40,10 @@ the **absolute** loudness of the music, but we've given ourselves more dynamic r
 
 The same is true for digital audio, but there are different consequences to audio with a limited bit depth.
 
-Before I get into that. First lets touch on why the dynamic range of digital audio is described in 
+Bit Depth & Binary Integers
+===========================
+
+Before I get into that, lets touch on why the dynamic range of digital audio is described in 
 terms of bit depth. Earlier I mentioned that when we sample audio, what we actually end up is a collection 
 of integers of a specific sort. What sort exactly depends precisely on the bit depth of the audio we're 
 targeting. Computers store integers - and every other thing! - as a series of 1s and 0s as you probably know. 
@@ -42,9 +51,13 @@ targeting. Computers store integers - and every other thing! - as a series of 1s
 Each of those 1s or 0s is called a bit. If we only needed to store 2 possible values, we could just use a single 
 bit. So, the number 1 would be:
 
+::
+
     1
     
 How about the number 3? We need to add a bit to give us more possible values. Using two bits, here is our 1 again:
+
+::
 
     0 1
 
@@ -52,6 +65,8 @@ The farthest bit to the right (this is called little-endian format fwiw, in reve
 column - so 0 is 0 and 1 is 1 - but our new bit is the twos column: 0 is 0 and 1 is 2.
 
 To store a three in binary, we'd write these bits into the computer's memory:
+
+::
 
     1 1
 
@@ -64,15 +79,22 @@ And how about 9? Add two more bits. These will represent the 4s and 8s columns -
 each additional bit is 2 to the power of its column index. So counting from 0 from the right to the left, lowest to 
 highest: 
 
+::
+
     2^0 = 1, 2^1 = 2, 2^2 = 4, 2^4 = 8
 
 That means we can store nine by setting 4 bits like this:
+
+::
 
     1 0 0 1
 
 Five: 1 eight plus 0 fours plus 0 twos plus 1 one.
 
 Now we're working with 4 bit numbers!
+
+Quantization Noise
+==================
 
 Okay, we can finally get to pure data. Lets listen to how 4 bit audio sounds by sampling my voice with pure data 
 using only the 8 possible values in a 4 bit integer. Here's a graph of what a sinewave recorded at this bit depth 
@@ -111,8 +133,8 @@ Inlets, outlets and data types
 
 Objects have inputs and outputs, which you can use to connect them to one another and create a signal path. Where you'd have an 
 amplifier at the terminating end of the signal path if you were hooking up some guitar pedals, in pd that end point is the 
-[ dac~ ] object. (There are other ways to get data in and out of pd - but for the purposes of this workshop I'll stick to 
-audio.) The [ dac~ ] object is an interface to your audio hardware. It has up to as many inlets as your soundcard has 
+``[ dac~ ]`` object. (There are other ways to get data in and out of pd - but for the purposes of this workshop I'll stick to 
+audio.) The ``[ dac~ ]`` object is an interface to your audio hardware. It has up to as many inlets as your soundcard has 
 channels - so typically there are two inlets: one for the left channel and one for the right.
 
 If we wanted to mimic the signal path of a guitar plugged into a volume pedal, which is in turn plugged into an amplifier, in 
@@ -121,7 +143,7 @@ pure data we could create a simple patch with three objects.
 Signal rate connections
 =======================
 
-As the guitar, we can start with an [ osc~ ] object. osc~ and dac~ are both signal rate objects. Every signal rate object has 
+As the guitar, we can start with an ``[ osc~ ]`` object. ``[ osc~ ]`` and ``[ dac~ ]`` are both signal rate objects. Every signal rate object has 
 a tilde at the end of its name by convention. Signal rate objects do their work very fast. Their speed correlates to the sampling 
 rate you've chosen for your soundcard. Lets assume we're using a sampling rate of 44,100 samples every second, and a bit depth of 
 16 bits - in other words, cd quality audio.
@@ -134,10 +156,10 @@ interval is the sampling rate for our system. Given the settings we decided on a
 a signal rate pd object would get a new number in one of its inlets, do something with it, and spit a new number out to one of its outlets.
 Actually, computation happens in small blocks of numbers. You can change the size of this block, but the default is usually 64 samples.
 So every 64/44100ths of a second - or about 1.45 milliseconds - pure data will process a block of 64 samples and schedule them for playback. 
-([Miller97], [Pd1])
+(Miller97_, PdMemoryModel_)
 
-[Miller97] http://puredata.info/docs/articles/puredata1997
-[Pd1] http://puredata.info/docs/developer/PdMemoryModel/view
+.. [Miller97] http://puredata.info/docs/articles/puredata1997
+.. [PdMemoryModel] http://puredata.info/docs/developer/PdMemoryModel/view
 
 
 Control rate connections
