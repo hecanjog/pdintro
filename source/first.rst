@@ -84,3 +84,56 @@ You can see how the audio makes huge jumps between values - these jumps are disc
 sounds with rougher and more angular shapes have a richer timbre, with more energy in the upper partials. These 
 jumps are just about as extreme as you can get in digital audio, so at those moments of transition the sound has 
 a lot of energy across the frequency spectrum. This is known as quantization noise.
+
+Data in Pure Data
+=================
+
+I think one of the most difficult hurdles to leap during the initial learning curve with pure data is learning to 
+understand how it handles and understands data in your patches. Initial frustrations can often be traced back to 
+questions related to data flow - for example:
+
+ - How does information flow around the program? 
+ - What different kinds of information are there? 
+ - How does each kind of information behave? 
+ - How do I convert one kind of information into another kind?
+
+Objects and abstractions
+========================
+
+The basic building block in pd is the object. Objects are very much like little highly specialized software guitar pedals.
+Some objects come with pd itself. If you downloaded the 'vanilla' version of pd, you will have a more minimal but very 
+powerful set of objects. If you downloaded Pd extended, you will get a number of additional libraries of objects as well.
+You can download additional objects that other people have made and use them alongside the built in objects. You can also 
+use your own patches as though they were themselves objects. We'll come back to that later.
+
+Inlets, outlets and data types
+==============================
+
+Objects have inputs and outputs, which you can use to connect them to one another and create a signal path. Where you'd have an 
+amplifier at the terminating end of the signal path if you were hooking up some guitar pedals, in pd that end point is the 
+[ dac~ ] object. (There are other ways to get data in and out of pd - but for the purposes of this workshop I'll stick to 
+audio.) The [ dac~ ] object is an interface to your audio hardware. It has up to as many inlets as your soundcard has 
+channels - so typically there are two inlets: one for the left channel and one for the right.
+
+If we wanted to mimic the signal path of a guitar plugged into a volume pedal, which is in turn plugged into an amplifier, in 
+pure data we could create a simple patch with three objects. 
+
+Signal rate connections
+=======================
+
+As the guitar, we can start with an [ osc~ ] object. osc~ and dac~ are both signal rate objects. Every signal rate object has 
+a tilde at the end of its name by convention. Signal rate objects do their work very fast. Their speed correlates to the sampling 
+rate you've chosen for your soundcard. Lets assume we're using a sampling rate of 44,100 samples every second, and a bit depth of 
+16 bits - in other words, cd quality audio.
+
+Sampling rate
+=============
+
+Thinking back to our discussion of digital audio, we spoke of sampling from the input of the signal chain at a regular interval. That 
+interval is the sampling rate for our system. Given the settings we decided on above, that means that every 1/44100th of a second 
+
+
+
+Control rate connections
+Block execution
+
