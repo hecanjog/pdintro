@@ -82,8 +82,11 @@ highest:
 .. math::
 
     2^0 = 1
+
     2^1 = 2
+
     2^2 = 4
+
     2^4 = 8
 
 That means we can store nine by setting 4 bits like this:
