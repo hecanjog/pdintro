@@ -127,7 +127,7 @@ questions related to data flow - for example:
 
 I'll try to provide the tools to discover the answers to these questions when they pop up in unfamiliar places.
 
-Objects and abstractions
+Objects and Abstractions
 ========================
 
 The basic building block in pd is the object. Objects are very much like little highly specialized software guitar pedals.
@@ -136,7 +136,7 @@ powerful set of objects. If you downloaded Pd extended, you will get a number of
 You can download additional objects that other people have made and use them alongside the built in objects. You can also 
 use your own patches as though they were themselves objects. We'll come back to that later.
 
-Inlets, outlets and data types
+Inlets, Outlets and Data Types
 ==============================
 
 Objects have inputs and outputs, which you can use to connect them to one another and create a signal path. Where you'd have an 
@@ -154,16 +154,13 @@ pure data we could create a simple patch with three objects.
    It doesn't sound much like a guitar, but you can imagine this simple patch as being like a 
    guitarist plugging his guitar into a volume pedal, and the volume pedal into a stereo amplifier.
 
-Signal Rate Connections
-=======================
-
-As the guitar, we can start with an ``[ osc~ ]`` object. ``[ osc~ ]`` and ``[ dac~ ]`` are both signal rate objects. Every signal rate object has 
+As the guitar, we can start with an ``[ osc~ 300 ]`` object. ``[ osc~ ]`` and ``[ dac~ ]`` are both signal rate objects. Every signal rate object has 
 a tilde at the end of its name by convention. Signal rate objects do their work very fast. Their speed correlates to the sampling 
 rate you've chosen for your soundcard. Lets assume we're using a sampling rate of 44,100 samples every second, and a bit depth of 
 16 bits - in other words, cd quality audio.
 
-More Sampling Signals
-=====================
+Sampling & Signal Rate Objects
+==============================
 
 Sampling is a concept that will constantly come up in working with digital audio. In different contexts it has specific meanings and 
 can sometimes be confusing, but the basic concept is very simple. Sampling is the process of picking a number out of a stream of numbers 
@@ -179,15 +176,50 @@ on in pd.
 
 While the DAC is on, every 1.45 milliseconds, pd figures out the next 64 values it should send to the ``[ dac~ ]`` all at once.
 
+Control Rate Objects
+====================
+
+.. image:: hslider_range.png
+   :align: center
+
+.. figure:: control_hsliders.png
+   :align: center
+
+   Try using the mouse to change the amplitude hslider very fast. The zippering sound you hear is the result of the same 
+   type of discontinuity we saw with quantization noise. Control rate objects only update once every DSP tick - in this case 
+   every 1.45ms - and so the ``[ *~ ]`` will hold its value for the duration of each 64 sample tick, and jump to the currently 
+   sampled value from the ``[ hslider ]`` on each subsequent tick.
+
 Zipper noise with control rate driven signal objects.
 
+The rest of this workshop will build on and continue to revisit the fundementals touched on above, but now we're going to get into 
+practical examples of use and build a little software instrument together.
 
-Control Rate Connections
-========================
+Signal math
 
+expr~
 
-Block execution
-===============
+s/r/s~/r~/throw~/catch~ and routing
+
+Adc~ and recording into tables
+
+Using tables for playback
+
+Loading a sound into a table
+
+Random numbers
+
+Advanced table playback
+
+Abstractions
+
+Resources
+=========
+
+- http://puredata.info The official site. Download PD here and find tons of links to patches and documentation.
+- http://puredata.hurleur.com The PD forum. A great place to ask questions, share patches, and generally nerd out about PD.
+- http://en.flossmanuals.net/pure-data/ Probably the most readable overview of Pure Data out there, this open source book is 
+always being updated and expanded.
 
 Citations
 =========
