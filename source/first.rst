@@ -1,10 +1,10 @@
 Digital Audio
 =============
 
-Sound hitting our ears is as continous as reality. Air compresses and rarefies smoothly.
+Sound hits our ears in unbroken waves. Air compresses and rarefies smoothly.
 Analog signals - like my voice for example - can be represented digitally by using a 
-sensitive membrane connected to a transducer - you may know this device as a microphone - 
-to sample these changes in pressure at a regular interval - is is the **sampling rate**.
+sensitive membrane connected to a transducer - aka a microphone - to sample these changes 
+in pressure at a regular interval - this is the **sampling rate**.
 
 Sampling Signals
 ================
@@ -27,16 +27,18 @@ the value is 100. If it is pulled all the way in, the value is -100. If it is at
 therefore silent) the value is 0. This means we have exactly 201 possible amplitudes to work 
 with. (That extra 1 comes from the 0 value.)
 
-[ diagram ]
-
 This range doesn't affect **absolute** loudness - that is to say, if we had a range of -200 to 
 200, the audio would not be twice as loud, but we would have almost twice the number of choices 
 for amplitudes.
 
-If we were writing music with western notation and we were limited to ppp, mf, and fff for 
-dynamic markings, this would be the equivelant to working with a low bit depth in digital audio.
-If we then wrote music using ppp, pp, p, mf, f, ff, and fff for dynamic markings, we haven't changed 
-the **absolute** loudness of the music, but we've given ourselves more dynamic range.
+If we were writing music with western notation and we were limited to ``ppp``, ``mf``, ``f``, and ``ffff`` 
+for dynamic markings, this would be the equivelant to working with a low bit depth in digital audio.
+If we then wrote music using ``ppp``, ``pp``, ``p``, ``mf``, ``f``, ``ff``, ``fff``, and ``ffff`` for dynamic 
+markings, we haven't changed the **absolute** loudness of the music, but we've given ourselves more 
+dynamic range.
+
+.. image:: dynamics.png
+   :align: center
 
 The same is true for digital audio, but there are different consequences to audio with a limited bit depth.
 
