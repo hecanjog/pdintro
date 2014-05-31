@@ -19,7 +19,7 @@ Once the audio has been sampled, what we actually have is a collection of number
 integers of a certain type - representing each instananious value of the signal. The range of these 
 integers correlates to the dynamic range of the audio. 
 
-.. figure:: stereo.py
+.. figure:: stereo.png
    :align: center
 
    A stream of interleaved stereo audio samples. A sinewave was sampled in each channel at a different phase.
