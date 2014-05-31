@@ -132,7 +132,8 @@ questions related to data flow - for example:
  - How does each kind of information behave? 
  - How do I convert one kind of information into another kind?
 
-I'll try to provide the tools to discover the answers to these questions when they pop up in unfamiliar places.
+The next sections cover some of these cases, but also try to provide the tools to help you discover the answers 
+to these questions on your own when they pop up in unfamiliar places.
 
 Objects and Abstractions
 ========================
@@ -141,17 +142,13 @@ The basic building block in pd is the object. Objects are very much like little 
 Some objects come with pd itself. If you downloaded the 'vanilla' version of pd, you will have a more minimal but very 
 powerful set of objects. If you downloaded Pd extended, you will get a number of additional libraries of objects as well.
 You can download additional objects that other people have made and use them alongside the built in objects. You can also 
-use your own patches as though they were themselves objects. We'll come back to that later.
+use your own patches as abstractions - which behave as though they were themselves objects. We'll come back to that later. 
+First lets start patching.
 
 Inlets, Outlets and Data Types
 ==============================
 
-Objects have inputs and outputs, which you can use to connect them to one another and create a signal path. Where you'd have an 
-amplifier at the terminating end of the signal path if you were hooking up some guitar pedals, in pd that end point is the 
-``[ dac~ ]`` object. (There are other ways to get data in and out of pd - but for the purposes of this workshop I'll stick to 
-audio.) The ``[ dac~ ]`` object is an interface to your audio hardware. It has up to as many inlets as your soundcard has 
-channels - so typically there are two inlets: one for the left channel and one for the right.
-
+Objects have inputs and outputs, which you can connect to one another to create a signal path, or send messages. 
 If we wanted to mimic the signal path of a guitar plugged into a volume pedal, which is in turn plugged into an amplifier, in 
 pure data we could create a simple patch with three objects. 
 
@@ -161,17 +158,25 @@ pure data we could create a simple patch with three objects.
    It doesn't sound much like a guitar, but you can imagine this simple patch as being like a 
    guitarist plugging his guitar into a volume pedal, and the volume pedal into a stereo amplifier.
 
-As the guitar, we can start with an ``[ osc~ 300 ]`` object. ``[ osc~ ]`` and ``[ dac~ ]`` are both signal rate objects. Every signal rate object has 
-a tilde at the end of its name by convention. Signal rate objects do their work very fast. Their speed correlates to the sampling 
+
+As the guitar, we can start with an ``[ osc~ 300 ]`` object. From the 'put' menu, select 'create object'. 
+
+``[ osc~ ]`` and ``[ dac~ ]`` are both signal rate objects. Every signal rate object has a tilde at the end of 
+its name by convention. Signal rate objects do their work very fast. Their speed correlates to the sampling 
 rate you've chosen for your soundcard. Lets assume we're using a sampling rate of 44,100 samples every second, and a bit depth of 
 16 bits - in other words, cd quality audio.
+
+In pd the the amplifier at the end of the signal chain is the ``[ dac~ ]`` object. (There are other ways to get data in and 
+out of pd - but for the purposes of this workshop I'll stick to audio.) The ``[ dac~ ]`` object is an interface to your audio 
+hardware. It has up to as many inlets as your soundcard has channels - so typically there are two inlets: one for the left 
+channel and one for the right.
 
 Sampling & Signal Rate Objects
 ==============================
 
 Sampling is a concept that will constantly come up in working with digital audio. In different contexts it has specific meanings and 
 can sometimes be confusing, but the basic concept is very simple. Sampling is the process of picking a number out of a stream of numbers 
-in order to represent that stream at a given point in time. In other words, it is a sample of the value of a signal at a certain time.
+in order to represent that stream at a given point in time. In other words, it is a representation of a signal at a certain time.
 
 The sampling rate for an audio system then just tells us how many samples the system will take in one second.
 Given the settings we decided on for the guitar example above, we could guess that every 1/44100th of a second 
@@ -182,6 +187,11 @@ So every 64/44100ths of a second - or about 1.45 milliseconds - pure data will p
 on in pd.
 
 While the DAC is on, every 1.45 milliseconds, pd figures out the next 64 values it should send to the ``[ dac~ ]`` all at once.
+
+.. figure:: blocks.png
+   :align: center
+
+   Control rate messages change on every DSP block.
 
 Control Rate Objects
 ====================
@@ -203,8 +213,6 @@ Try using the mouse to change the amplitude hslider very fast. The zippering sou
 type of discontinuity we saw with quantization noise. Control rate objects only update once every DSP tick - in this case 
 every 1.45ms - and so the ``[ *~ ]`` will hold its value for the duration of each 64 sample tick, and jump to the currently 
 sampled value from the ``[ hslider ]`` on each subsequent tick.
-
-
 
 Zipper noise with control rate driven signal objects.
 
