@@ -229,10 +229,27 @@ recording.
 Delete the ``[ osc~ ]]`` object and replace it with a ``[ phasor~ 1 ]`` connected to 
 a ``[ *~ 44100 ]`` object, in turn connected to a ``[ tabread4~ buffer ]`` object.
 
+Now, use the put menu to create a new message box and type this into it:
+
+::
+
+    read -resize cardinal.wav buffer
+
+Connect that to the inlet of a new ``[ soundfiler ]`` object. The ``read`` message tells 
+soundfiler you want to read audio from a file into a table. ``-resize`` tells it to resize 
+the table to match the number of samples in the audio file you're reading from. The next 
+argument is the filename, which is relative to the patch you're running. This file is 
+included in the github repository along with the pure data patches shown in this document.
+The final message tells soundfiler which table to write the audio into - in this case, the 
+buffer array we created earlier.
+
 .. figure:: buffer1.png
    :align: center
 
    Reading audio from a table with tabread4~
+
+Playing Audio From Tables
+=========================
 
 These are all signal rate objects, just like ``[ osc~ ]`` and connect easily to the 
 signal inlet of the ``[ *~ 0.2 ]`` object. ``*~`` will multiply an incoming value (which 
@@ -259,7 +276,6 @@ expr~
 s/r/s~/r~/throw~/catch~ and routing
 
 
-Using tables for playback
 
 Loading a sound into a table
 
@@ -276,6 +292,8 @@ Resources
 - http://puredata.hurleur.com The PD forum. A great place to ask questions, share patches, and generally nerd out about PD.
 - http://en.flossmanuals.net/pure-data/ Probably the most readable overview of Pure Data out there, this open source book is 
 always being updated and expanded.
+- http://pd-la.info/pd-media/miller-puckette-mus171-videos/ A full introductory course on creating computer music with pure 
+data taught by the author of pure data.
 
 Citations
 =========
