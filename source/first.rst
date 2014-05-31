@@ -338,10 +338,8 @@ Resources
 
 - http://puredata.info The official site. Download PD here and find tons of links to patches and documentation.
 - http://puredata.hurleur.com The PD forum. A great place to ask questions, share patches, and generally nerd out about PD.
-- http://en.flossmanuals.net/pure-data/ Probably the most readable overview of Pure Data out there, this open source book is 
-always being updated and expanded.
-- http://pd-la.info/pd-media/miller-puckette-mus171-videos/ A full introductory course on creating computer music with pure 
-data taught by the author of pure data.
+- http://en.flossmanuals.net/pure-data/ Probably the most readable overview of Pure Data out there, this open source book is always being updated and expanded.
+- http://pd-la.info/pd-media/miller-puckette-mus171-videos/ A full introductory course on creating computer music with pure data taught by the author of pure data.
 
 Citations
 =========
