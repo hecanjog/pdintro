@@ -219,13 +219,40 @@ Zipper noise with control rate driven signal objects.
 The rest of this workshop will build on and continue to revisit the fundementals touched on above, but now we're going to get into 
 practical examples of use and build a little software instrument together.
 
+Adc~ and recording into tables
+
+Instead of a sinewave, lets play back a recording. First, use the put menu to create a new 
+array and call it buffer. We'll use the array to store every sample of the recording we want 
+to play. Don't worry about the size right now, we'll resize it in a moment when we load the 
+recording.
+
+Delete the ``[ osc~ ]]`` object and replace it with a ``[ phasor~ 1 ]`` connected to 
+a ``[ *~ 44100 ]`` object, in turn connected to a ``[ tabread4~ buffer ]`` object.
+
+These are all signal rate objects, just like ``[ osc~ ]`` and connect easily to the 
+signal inlet of the ``[ *~ 0.2 ]`` object. ``*~`` will multiply an incoming value (which 
+is always sent to the left inlet) with the value given as an argument, or a value sent 
+into its right inlet. So far we've used it to attenuate a signal by multiplying it with a 
+value less than 1 and created a handy volume control. Now, we're taking the stream of values 
+coming out of ``[ phasor~ ]`` and essentially scaling the range of those values by multiplying 
+every value by the sampling rate, 44100. ``[ phasor~ 1 ]`` will output a linear ramp from 1 to 0 
+at a speed of 1hz - since we gave it an argument of ``1``. That means we have a nice counter 
+moving from 0 to 1 over the course of 1 second. We can read through the values stored in our 
+buffer table by connecting the phasor to a ``[ tabread4~ ]`` object. Tabread4~ takes a signal 
+in its left inlet as an index in the table to read from, and outputs the value in the table 
+at that index through its outlet.
+
+.. figure:: buffer1.png
+   :align: center
+
+   Reading audio from a table with tabread4~
+
 Signal math
 
 expr~
 
 s/r/s~/r~/throw~/catch~ and routing
 
-Adc~ and recording into tables
 
 Using tables for playback
 
