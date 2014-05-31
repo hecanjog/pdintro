@@ -31,9 +31,9 @@ This range doesn't affect **absolute** loudness - that is to say, if we had a ra
 200, the audio would not be twice as loud, but we would have almost twice the number of choices 
 for amplitudes.
 
-If we were writing music with western notation and we were limited to ``ppp``, ``mf``, ``f``, and ``ffff`` 
+If we were writing music with western notation and we were limited to ``ppp``, ``mp``, ``mf``, and ``fff`` 
 for dynamic markings, this would be the equivelant to working with a low bit depth in digital audio.
-If we then wrote music using ``ppp``, ``pp``, ``p``, ``mf``, ``f``, ``ff``, ``fff``, and ``ffff`` for dynamic 
+If we then wrote music using ``ppp``, ``pp``, ``p``, ``mp``, ``mf``, ``f``, ``ff``, ``fff``, and ``fff`` for dynamic 
 markings, we haven't changed the **absolute** loudness of the music, but we've given ourselves more 
 dynamic range.
 
