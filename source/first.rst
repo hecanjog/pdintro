@@ -327,7 +327,11 @@ Simplify the patch with abstractions
 
    Reducing clutter and improving modularity with abstractions
 
+::
+    
+    buffer cosinesum 512 0.1 1.0 0.6
 
+    buffer sinesum 512 0.1 1.0 0.6
 
 Advanced buffer playback - basic granular techniques
 
