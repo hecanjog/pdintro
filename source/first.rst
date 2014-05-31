@@ -219,7 +219,7 @@ Zipper noise with control rate driven signal objects.
 The rest of this workshop will build on and continue to revisit the fundementals touched on above, but now we're going to get into 
 practical examples of use and build a little software instrument together.
 
-Adc~ and recording into tables
+Adc~ and recording into buffers 
 
 Instead of a sinewave, lets play back a recording. First, use the put menu to create a new 
 array and call it buffer. We'll use the array to store every sample of the recording we want 
@@ -235,33 +235,39 @@ Now, use the put menu to create a new message box and type this into it:
 
     read -resize cardinal.wav buffer
 
+Loading a Sound Into an Array
+=============================
+
 Connect that to the inlet of a new ``[ soundfiler ]`` object. The ``read`` message tells 
-soundfiler you want to read audio from a file into a table. ``-resize`` tells it to resize 
-the table to match the number of samples in the audio file you're reading from. The next 
+soundfiler you want to read audio from a file into a array. ``-resize`` tells it to resize 
+the array to match the number of samples in the audio file you're reading from. The next 
 argument is the filename, which is relative to the patch you're running. This file is 
 included in the github repository along with the pure data patches shown in this document.
-The final message tells soundfiler which table to write the audio into - in this case, the 
-buffer array we created earlier.
+The final message tells soundfiler which array to write the audio into - in this case, the 
+buffer array we created earlier. Click the message box to send its contents to the soundfiler 
+inlet.
 
 .. figure:: buffer1.png
    :align: center
 
-   Reading audio from a table with tabread4~
+   Reading audio from a array with tabread4~
 
-Playing Audio From Tables
+
+Playing Audio From Arrays
 =========================
 
-These are all signal rate objects, just like ``[ osc~ ]`` and connect easily to the 
-signal inlet of the ``[ *~ 0.2 ]`` object. ``*~`` will multiply an incoming value (which 
-is always sent to the left inlet) with the value given as an argument, or a value sent 
-into its right inlet. So far we've used it to attenuate a signal by multiplying it with a 
-value less than 1 and thus created a handy volume control. Now, we're taking the stream of values 
-coming out of ``[ phasor~ ]`` and essentially scaling the range of those values by multiplying 
-every value by the sampling rate, 44100. ``[ phasor~ 1 ]`` will output a linear ramp from 0 to 1 
+Except for soundfiler and the message box, these are all signal rate objects, just like 
+``[ osc~ ]`` and connect easily to the signal inlet of the ``[ *~ 0.2 ]`` object. 
+``*~`` will multiply an incoming value (which is always sent to the left inlet) with 
+the value given as an argument, or a value sent into its right inlet. So far we've used 
+it to attenuate a signal by multiplying it with a value less than 1 and thus created a 
+handy volume control. Now, we're taking the stream of values coming out of ``[ phasor~ ]`` 
+and essentially scaling the range of those values by multiplying every value by the sampling 
+rate, 44100. ``[ phasor~ 1 ]`` will output a linear ramp from 0 to 1 
 at a speed of 1hz - since we gave it an argument of ``1``. That means we have a nice counter 
 moving from 0 to 1 over the course of 1 second. We can read through the values stored in our 
-buffer table by connecting the phasor to a ``[ tabread4~ ]`` object. Tabread4~ takes a signal 
-in its left inlet as an index in the table to read from, and outputs the value in the table 
+buffer array by connecting the phasor to a ``[ tabread4~ ]`` object. Tabread4~ takes a signal 
+in its left inlet as an index in the array to read from, and outputs the value in the array 
 at that index through its outlet.
 
 .. figure:: phasor.png
@@ -269,21 +275,63 @@ at that index through its outlet.
 
    A phasor used as an index to look up values in a buffer
 
-Signal math
+Signal math - relating playback speed to playback range & using it for pitch shifting
 
-expr~
+.. figure:: control_speed.png
+   :align: center
 
-s/r/s~/r~/throw~/catch~ and routing
+   Using control rate objects to calculate playback speeds
+
+Shorthand signal math with expr~
+
+.. figure:: control_signal.png
+   :align: center
+
+   Using control rate objects to calculate playback speeds
+
+Tidy up patches with s/r/s~/r~/throw~/catch~ and routing
+
+.. figure:: control_routing.png
+   :align: center
+
+   Using s~/r~ and s/r to route data and automatically document your code
+
+Create random numbers with random and expr
+
+.. figure:: control_random.png
+   :align: center
+
+   Two methods of generating random ranges of numbers at control rate
+
+Create random numbers with noise~, samphold~, expr~ and phasor~
+
+.. figure:: signal_random.png
+   :align: center
+
+   Using samphold~ as a periodic random number generator driven by noise~
+
+Simplify the patch with abstractions
+
+.. figure:: rand_abstraction.png
+   :align: center
+
+   A small signal rate random number generator
+
+.. figure:: play_abs.png
+   :align: center
+
+   A fairly general purpose buffer playback abstraction
+
+.. figure:: play_rand.png
+   :align: center
+
+   Reducing clutter and improving modularity with abstractions
 
 
 
-Loading a sound into a table
+Advanced buffer playback - basic granular techniques
 
-Random numbers
-
-Advanced table playback
-
-Abstractions
+Abstractions and arguments - grain playback objects
 
 Resources
 =========

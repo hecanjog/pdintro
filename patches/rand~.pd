@@ -1,0 +1,12 @@
+#N canvas 601 305 677 231 10;
+#X obj 46 23 noise~;
+#X obj 46 44 expr~ ($v1 + 1) / 2;
+#X obj 46 66 samphold~;
+#X obj 119 66 phasor~ \$1;
+#X obj 47 90 expr~ $v1 * \$2 + \$3;
+#X obj 46 114 outlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 4 0;
+#X connect 3 0 2 1;
+#X connect 4 0 5 0;
